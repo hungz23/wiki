@@ -1,0 +1,7 @@
+<h1>Articles#search</h1>
+<p>Find me in app/views/articles/search.html.erb</p>
+
+<%= form_tag(articles_path, :method => "get", id: "search-form") do %>
+  <%= text_field_tag :search, params[:search], placeholder: "Search Articles" %>
+  <%= submit_tag "Search", :name => nil %>
+<% end %>

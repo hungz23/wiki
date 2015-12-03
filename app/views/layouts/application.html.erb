@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Workspace</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+  <nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container-fluid">
+     <!-- Brand and toggle get grouped for better mobile display -->
+   
+      
+      <%= link_to "Wikipedia", root_path, class: "navbar-brand" %>
+      <% if !user_signed_in? %>
+         <li><%= link_to "Sign in", new_user_session_path %></li>
+      <% else %>
+         <li><%= link_to "Sign out", destroy_user_session_path, method: :delete %></li>
+      <% end %>
+      <ul class="nav navbar-nav navbar-right">
+          <% if user_signed_in? %>
+           <li><%= link_to "New Article", new_article_path %></li>
+          <% end %>
+      </ul>
+  
+  </div>
+ </nav>
+       <p class="notice"><%= notice %></p>
+       <p class="alert"><%= alert %></p>
+      
+       <div class="container">
+         <div class="row">
+             <div class="col-md-8">
+                  <%= yield %>
+             </div>
+             <div class="col-md-4">
+                  <ul class="list-group">
+                     <li class="list-group-item"><%= link_to "All Articles", root_path %></li>
+                      <% Category.all.each do |category| %>
+                      <li class="list-group-item"><%= link_to category.name, articles_path(category: category.name) %></li>
+                <% end %>
+                  </ul>
+             </div>
+         </div>
+         
+          
+        
+       </div>
+
+
+</body>
+</html>
