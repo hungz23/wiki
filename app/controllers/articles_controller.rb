@@ -39,8 +39,10 @@ class ArticlesController < ApplicationController
     end
     
     def update
-        if @article.update(article_params)
-            redirect_to @article
+        @article = current_user.articles.build(article_params)
+        if @article.save
+            flash[:success] = "User Created!"
+            redirect_to @article 
         else
             render 'edit'
         end
